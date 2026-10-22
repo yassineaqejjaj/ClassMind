@@ -50,6 +50,7 @@ La boucle centrale : évaluation (CSV) → analyse (Python) → adaptation → e
 | POST | `/exercises/generate` | 3 variantes + vérification SymPy |
 | GET/PUT | `/exercises`, `/exercises/{id}` | bibliothèque, modification (revérification) |
 | POST | `/exercises/{id}/validate` | validation humaine (refusée si calcul contredit) |
+| POST | `/exercises/{id}/reject` | rejet par l'enseignant (série non exportable) |
 | GET | `/exercises/{id}/pdf?answers=` | export PDF (uniquement si validé) |
 
 ## Sécurité
