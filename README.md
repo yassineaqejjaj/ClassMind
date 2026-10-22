@@ -128,6 +128,28 @@ sequenceDiagram
 
 ## Démarrage rapide
 
+### Démo locale en une commande (sans Podman, Keycloak ni PostgreSQL)
+
+Prérequis : [uv](https://docs.astral.sh/uv/) et Node.js 22+.
+
+```bash
+scripts/local-demo.sh
+```
+
+Ouvrez <http://localhost:5273>. Le script démarre l'API (base SQLite dans `.local/`, classe fictive « 5e B » et deux évaluations déjà importées) et le frontend, avec une **authentification de développement** qui connecte un enseignant fixe. Ports modifiables : `LOCAL_API_PORT` (8765) et `LOCAL_WEB_PORT` (5273).
+
+Pour tester la génération d'exercices avec un vrai modèle, créez un `.env` à la racine **avant** de lancer :
+
+```bash
+OPENAI_API_KEY=...
+OPENAI_MODEL=...
+# tarifs du modèle (EUR / million de tokens), pour le suivi des coûts
+LLM_PRICE_INPUT_PER_M=0
+LLM_PRICE_OUTPUT_PER_M=0
+```
+
+Sans clé, tout fonctionne sauf la génération IA (message « Service IA non configuré »). Seul ce mode démo contourne Keycloak : le contournement n'existe que dans `vite dev` avec `VITE_DEV_AUTH=1` (absent des builds de production) et dans `scripts/local_demo.py`, à ne jamais exposer sur un réseau.
+
 ### Pile complète avec Podman
 
 Prérequis : Linux, Podman et `podman compose`.

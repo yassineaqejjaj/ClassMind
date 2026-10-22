@@ -10,7 +10,30 @@ export const userManager = new UserManager({
   userStore: new WebStorageStateStore({ store: window.sessionStorage }),
 });
 
+/**
+ * Mode démo locale : uniquement avec `vite dev` ET VITE_DEV_AUTH=1 (jamais dans un build de production,
+ * `import.meta.env.DEV` y vaut false). L'API correspondante est lancée par scripts/local_demo.py.
+ */
+const devAuth = import.meta.env.DEV && import.meta.env.VITE_DEV_AUTH === "1";
+
+export interface SessionUser {
+  expired?: boolean;
+  access_token: string;
+  profile: { name?: string; given_name?: string; preferred_username?: string };
+}
+
+export async function currentUser(): Promise<SessionUser | null> {
+  if (devAuth) {
+    return {
+      expired: false,
+      access_token: "dev",
+      profile: { name: "Camille Martin", given_name: "Camille", preferred_username: "camille" },
+    };
+  }
+  return userManager.getUser();
+}
+
 export async function getToken(): Promise<string | null> {
-  const user = await userManager.getUser();
+  const user = await currentUser();
   return user && !user.expired ? user.access_token : null;
 }

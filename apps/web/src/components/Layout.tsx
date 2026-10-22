@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { api } from "@/services/api";
-import { userManager } from "@/services/auth";
+import { currentUser, userManager } from "@/services/auth";
 import { LogoMark } from "./Logo";
 
 const NAV: { to: string; label: string; icon: LucideIcon; end?: boolean }[] = [
@@ -27,7 +27,7 @@ export function useCurrentUser() {
   return useQuery({
     queryKey: ["oidc-user"],
     queryFn: async () => {
-      const p = (await userManager.getUser())?.profile;
+      const p = (await currentUser())?.profile;
       const name = p?.name ?? p?.preferred_username ?? "";
       const first = (p?.given_name as string | undefined) ?? name.split(" ")[0];
       const initials = name

@@ -68,11 +68,13 @@ export default function Dashboard() {
           retenir de vos classes.
         </h2>
         <p className="text-base text-muted">
-          {focus
-            ? "Un point demande votre attention."
-            : rows.length
-              ? "Importez une évaluation pour obtenir une analyse."
-              : "Créez une première classe pour commencer."}
+          {dash.isLoading
+            ? "\u00a0"
+            : focus
+              ? "Un point demande votre attention."
+              : rows.length
+                ? "Importez une évaluation pour obtenir une analyse."
+                : "Créez une première classe pour commencer."}
         </p>
       </section>
       <ErrorBox error={dash.error ?? classes.error} />

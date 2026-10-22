@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Layout from "./components/Layout";
 import { Loading } from "./components/ui";
-import { userManager } from "./services/auth";
+import { currentUser, userManager } from "./services/auth";
 import AnalysisPage from "./pages/Analysis";
 import ClassDetailPage from "./pages/ClassDetail";
 import ClassesPage from "./pages/Classes";
@@ -29,7 +29,7 @@ function Callback() {
 function Protected() {
   const [state, setState] = useState<"loading" | "in" | "out">("loading");
   useEffect(() => {
-    userManager.getUser().then((u) => setState(u && !u.expired ? "in" : "out"));
+    currentUser().then((u) => setState(u && !u.expired ? "in" : "out"));
   }, []);
   if (state === "loading") return <Loading />;
   return state === "in" ? <Layout /> : <Navigate to="/connexion" replace />;
