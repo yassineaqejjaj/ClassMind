@@ -1,0 +1,46 @@
+# Compatible Podman : `podman compose up -d --build`
+services:
+  db:
+    image: docker.io/library/postgres:16
+    environment:
+      POSTGRES_USER: classmind
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: classmind
+    volumes: ["dbdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U classmind"]
+      interval: 5s
+      retries: 10
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    command: ["start-dev", "--import-realm"]
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_HTTP_RELATIVE_PATH: /auth
+      KC_PROXY_HEADERS: xforwarded
+      KC_HOSTNAME_STRICT: "false"
+    volumes: ["./infrastructure/keycloak/classmind-realm.json:/opt/keycloak/data/import/classmind-realm.json:ro"]
+
+  api:
+    build: { context: ., dockerfile: infrastructure/containers/api.Containerfile }
+    env_file: .env
+    environment:
+      CORS_ORIGINS: ${PUBLIC_URL}
+    depends_on:
+      db: { condition: service_healthy }
+
+  web:
+    build:
+      context: .
+      dockerfile: infrastructure/containers/web.Containerfile
+      args:
+        VITE_OIDC_AUTHORITY: ${OIDC_ISSUER}
+    environment:
+      CLASSMIND_HOST: ${CLASSMIND_HOST}
+    ports: ["8080:80", "8443:443"]
+    depends_on: [api, keycloak]
+
+volumes:
+  dbdata:

@@ -1,0 +1,24 @@
+# {$CLASSMIND_HOST} : "localhost" pour un essai local ; un nom de domaine active HTTPS automatique.
+{$CLASSMIND_HOST:localhost} {
+	encode gzip
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+		X-Frame-Options DENY
+	}
+	handle /api/* {
+		reverse_proxy api:8000
+	}
+	handle /healthz {
+		reverse_proxy api:8000
+	}
+	handle /auth/* {
+		reverse_proxy keycloak:8080
+	}
+	handle {
+		root * /srv
+		try_files {path} /index.html
+		file_server
+	}
+}

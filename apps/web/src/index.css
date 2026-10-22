@@ -1,0 +1,35 @@
+@import "@fontsource-variable/inter";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 font-sans text-slate-700 antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply text-ink;
+  }
+  :focus-visible {
+    @apply outline outline-[3px] outline-offset-2 outline-brand;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}
+@layer components {
+  .nav-item {
+    @apply flex min-h-[44px] items-center gap-3 rounded-xl px-3 text-sm font-medium text-[#A5B4D4] hover:bg-white/10 hover:text-white;
+  }
+  .nav-item[aria-current="page"] {
+    @apply bg-brand-night text-white;
+  }
+  .nav-item:focus-visible {
+    @apply outline-white;
+  }
+}

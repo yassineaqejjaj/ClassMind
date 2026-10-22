@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<style>
+ @page { size: A4; margin: 18mm; @bottom-center { content: "ClassMind — page " counter(page); font-size: 9pt; color: #666 } }
+ body { font-family: "DejaVu Sans", sans-serif; font-size: 11pt; color: #111 }
+ h1 { font-size: 16pt; margin: 0 0 4pt } h2 { font-size: 13pt; margin-top: 16pt }
+ .meta { color: #555; font-size: 10pt } li { margin: 8pt 0 } .ans { color: #0a5; font-weight: bold }
+ .expl { color: #444; font-size: 10pt } section { page-break-after: always } section:last-child { page-break-after: auto }
+</style></head><body>
+{% for v in variants %}
+<section>
+ <h1>{{ competency.code }} — {{ competency.label }}</h1>
+ <div class="meta">Variante {{ v.label }} · {{ difficulty }} · {{ v.title }}</div>
+ <h2>Exercices</h2>
+ <ol>{% for q in v.questions %}<li>{{ q.statement }}</li>{% endfor %}</ol>
+ {% if with_answers %}
+ <h2>Corrigé</h2>
+ <ol>{% for q in v.questions %}<li><span class="ans">{{ q.answer }}</span><div class="expl">{{ q.explanation }}</div></li>{% endfor %}</ol>
+ {% endif %}
+</section>
+{% endfor %}
+</body></html>

@@ -1,0 +1,40 @@
+{
+  "realm": "classmind",
+  "enabled": true,
+  "registrationAllowed": false,
+  "roles": { "realm": [{ "name": "teacher" }, { "name": "establishment_admin" }] },
+  "clientScopes": [
+    {
+      "name": "classmind-api-access",
+      "protocol": "openid-connect",
+      "attributes": { "include.in.token.scope": "false" },
+      "protocolMappers": [
+        { "name": "audience", "protocol": "openid-connect", "protocolMapper": "oidc-audience-mapper",
+          "config": { "included.custom.audience": "classmind-api", "access.token.claim": "true", "id.token.claim": "false" } },
+        { "name": "establishment_id", "protocol": "openid-connect", "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "config": { "user.attribute": "establishment_id", "claim.name": "establishment_id", "jsonType.label": "String", "access.token.claim": "true", "id.token.claim": "false" } }
+      ]
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "classmind-web",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": ["http://localhost:8080/callback", "http://localhost:5173/callback"],
+      "webOrigins": ["http://localhost:8080", "http://localhost:5173"],
+      "attributes": { "pkce.code.challenge.method": "S256", "post.logout.redirect.uris": "http://localhost:8080/*##http://localhost:5173/*" },
+      "defaultClientScopes": ["profile", "roles", "classmind-api-access"]
+    }
+  ],
+  "users": [
+    {
+      "username": "enseignant.demo",
+      "enabled": true,
+      "attributes": { "establishment_id": ["1"] },
+      "realmRoles": ["teacher"],
+      "credentials": [{ "type": "password", "value": "demo-a-changer", "temporary": true }]
+    }
+  ]
+}
