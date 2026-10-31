@@ -356,3 +356,11 @@ compose.yaml  pile Podman/Compose
 Toutes les dépendances sont open source (MIT, BSD, Apache-2.0 en grande majorité ; `psycopg` en LGPL-3.0 par import dynamique). Seule exception : l'API OpenAI, isolée derrière `LLMProvider`. Inventaire complet : [docs/licences.md](docs/licences.md).
 
 La licence du code de ClassMind lui-même n'est pas encore définie : à choisir avant toute diffusion publique.
+
+---
+
+## Part of an engineering approach
+
+Built with the [Agentic SDLC framework](https://github.com/yassineaqejjaj/agentic-sdlc) (earned autonomy). Read how this project was built and what its checks caught in the [case study](https://github.com/yassineaqejjaj/agentic-sdlc/blob/main/docs/case-studies/classmind.md).
+
+Companion to the book [Leading with AI: Embracing the Future of Education](https://www.amazon.fr/dp/B0CN5PG7LT).
