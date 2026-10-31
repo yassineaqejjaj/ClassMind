@@ -10,6 +10,19 @@ ClassMind est une plateforme web pour enseignants. Elle transforme les résultat
 
 ![Tableau de bord](docs/screenshots/02-tableau-de-bord.png)
 
+## En un coup d'œil
+
+[![CI](https://github.com/yassineaqejjaj/ClassMind/actions/workflows/ci.yml/badge.svg)](https://github.com/yassineaqejjaj/ClassMind/actions/workflows/ci.yml)
+
+| | |
+|---|---|
+| **Ce que c'est** | Une plateforme web pour enseignants : diagnostic par compétence à partir d'une évaluation, exercices adaptés générés avec un LLM puis validés par l'enseignant, mesure de la progression entre deux évaluations. |
+| **Pour qui** | Enseignants (périmètre du MVP : mathématiques de cinquième, « Nombres relatifs »). |
+| **Statut** | **Prototype** (MVP). Données fictives uniquement ; analyse de risque réglementaire à faire valider par un DPO avant toute donnée réelle. |
+| **Limites principales** | Un seul chapitre ; vérification SymPy limitée aux calculs numériques simples ; Playwright non exécuté en CI ; pas d'audit WCAG formel (voir [Limites connues](#limites-connues)). |
+| **Feuille de route** | Non documentée à ce stade (le « hors périmètre » figure dans les limites). |
+| **Licence** | Aucun fichier de licence pour l'instant (voir [Licences](#licences)). |
+
 ## Sommaire
 
 - [Fonctionnement](#fonctionnement)
