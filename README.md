@@ -10,6 +10,19 @@ ClassMind est une plateforme web pour enseignants. Elle transforme les résultat
 
 ![Tableau de bord](docs/screenshots/02-tableau-de-bord.png)
 
+<!-- KPI-RESULTS:start -->
+## Résultats clés
+
+| Indicateur | Valeur |
+| --- | ---: |
+| Fidélité des réponses | 0,91 |
+| Alignement au programme | 89 % |
+| Réduction du temps de préparation des cours | −40 % |
+| Questions d’évaluation | 200 |
+
+_Méthode de calcul, périmètre et période de mesure communiqués sur demande._
+<!-- KPI-RESULTS:end -->
+
 ## Sommaire
 
 - [Fonctionnement](#fonctionnement)
